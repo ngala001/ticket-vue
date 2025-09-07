@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import TeamCard from '@/components/TeamCard.vue';
 import { GET_TEAMS } from '@/composable/team-actions';
 import { useTeamStore } from '@/store/team-store';
 import { useQuery } from '@vue/apollo-composable';
@@ -30,26 +31,27 @@ import { watchEffect } from 'vue';
 
 </script>
 <template>
-    <div class="h-[91vh]">
-       <div class="flex items-center h-full justify-center" v-if="store.loading">
-        <div>
-            <p>
-              <span class="loading loading-bars"></span>
-            </p>
-            <p>Loading...</p>
-        </div>
-       </div>
-       <div class="flex items-center h-full justify-center" v-if="store.error">
-          <h3>{{ error }}</h3>
-       </div>
-       <div v-for="team in store.teams" :key="team.id">
-          <div class="max-w-xl mx-auto grid grid-cols-2">
-              <img :src="team.logo" alt="logo">
-              <div>
-                 <h1>{{ team.name }}</h1>
-              </div>
+    <div class="h-[91vh] pt-8">
+      <div class="w-[85%] mx-auto gap-5 grid grid-cols-2">
+         <div class="flex items-center h-full justify-center" v-if="store.loading">
+          <div>
+              <p>
+                <span class="loading loading-bars"></span>
+              </p>
+              <p>Loading...</p>
           </div>
-       </div>
+         </div>
+         <div class="flex items-center h-full justify-center" v-if="store.error">
+            <h3>{{ error }}</h3>
+         </div>
+         <div 
+             v-for="team in store.teams" 
+             :key="team.id"
+             class=""
+           >
+             <TeamCard :logo="team.logo" :name="team.name"/>
+         </div>
+      </div>
     </div>
 </template>
 
